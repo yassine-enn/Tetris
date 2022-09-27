@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // Afficher une pièce aléatoire parmis les pièces du Tetris en haut au centre de la grille au début du jeu (la grille fait 10x22 cases), en précisant les couleurs de chaque case de la grille, puis à chaque fois qu'une pièce touche le sol.
 // Paramétrer une fonction de Tick de manière à ce qu'elle soit appelée automatiquement à chaque tick, ce qui permettra de déplacer les pièces dans le temps vers le bas
@@ -21,10 +22,12 @@ public class GridDisplay : MonoBehaviour
 
     // Largeur de la grille en nombre de cases
     public int width = 10;
+    
+    
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
+        //Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
@@ -33,11 +36,26 @@ public class GridDisplay : MonoBehaviour
         //        et la flèche du bas du clavier.
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
-        
+
+        // changer la couleur de la case en haut au centre de la grille
+        for (int i=0;i<22;i++){
+            List<SquareColor> Ligne = new List<SquareColor>();
+            for (int j = 0;j<10;j++){
+                Ligne.Add(SquareColor.TRANSPARENT);
+            }
+            Game.Grid.Add(Ligne);
+        }
+        SetColors(Game.Grid);
+        Tetromino.CreatePiece();
+        SetTickFunction(Test);
+    }
+
+    public static void Test(){
+        SetColors(Game.Grid);
     }
 
     // Paramètre la fonction devant être appelée à chaque tick. 
-    // C'est ici que le gros de la logique temporelle de votre jeu aura lieu!
+    // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
     // Cette fonction peut être une méthode d'une autre classe
     // et doit renvoyer void, et ne prendre aucun argument.
     public static void SetTickFunction(TickFunction function){
@@ -99,6 +117,7 @@ public class GridDisplay : MonoBehaviour
         _grid.TriggerGameOver();
     }
 
+  
 
 /// Les lignes au delà de celle-ci ne vous concernent pas.
 
@@ -113,5 +132,6 @@ public class GridDisplay : MonoBehaviour
     void Start(){ 
         Initialize();
     }
-    
 }
+
+

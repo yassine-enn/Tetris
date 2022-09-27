@@ -16,7 +16,8 @@ public class _GridDisplay : MonoBehaviour
     public int width = 10;
     public int height = 22;
 
-    public float squareSize = 0.3f;
+    public float squareSize = 0.4f;
+
     public float tick = 1.0f;
 
     public TickFunction Tick = null;
@@ -37,18 +38,18 @@ public class _GridDisplay : MonoBehaviour
 
     public GameObject squarePrefab = null;
     // Start is called before the first frame update
-    void Start() 
+    void Awake()
     {
         Create();
     }
 
     // Update is called once per frame
-    void Update() 
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
 
-    void Create(){   //create the grid
+    void Create(){
         GameObject parent = new GameObject();
         parent.name = "Grid";
         for(int y = 0; y < this.height; y++){
@@ -63,18 +64,18 @@ public class _GridDisplay : MonoBehaviour
         }
     }
 
-    public void SetScore(int score){ //TODO: make it work with the score
+    public void SetScore(int score){
         if(this.score){
             this.score.SetText($"{score}");
         }
     }
 
-    public void TriggerGameOver(){ //TODO: make it work with the game over
+    public void TriggerGameOver(){
         this.gameOver.SetActive(true);
         this.StopCoroutine(this.tickCoroutine);
     }
 
-    public void SetColors(List<List<SquareColor>> colors){ //colors[y][x] = color of the square at x,y position in the grid 
+    public void SetColors(List<List<SquareColor>> colors){
         if(colors.Count != this.height){
             throw new System.FormatException("Provided grid does not have the right number of lines.");
         }
@@ -88,35 +89,37 @@ public class _GridDisplay : MonoBehaviour
         }
     }
 
-    void OnRotate(){ //called when the user presses the rotate button
+    void OnRotate(){
         if(this.Rotate != null){
             this.Rotate();
         }
     }
 
-    void OnMoveLeft(){ //called when the user presses the move left button
+    void OnMoveLeft(){
         if(this.MoveLeft != null){
             this.MoveLeft();
         }
     }
 
-    void OnMoveRight(){ //called when the user presses the move right button
+    void OnMoveRight(){
         if(this.MoveRight != null){
             this.MoveRight();
         }
     }
 
-    void OnRush(){ //called when the user presses the rush button
-      if(this.Rush != null){
+    void OnRush(){
+        if(this.Rush != null){
             this.Rush();
         }
     }
 
 
-    IEnumerator LaunchTicks(){ //called every frame
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+    IEnumerator LaunchTicks(){
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }
