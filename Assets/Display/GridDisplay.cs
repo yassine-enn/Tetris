@@ -47,10 +47,21 @@ public class GridDisplay : MonoBehaviour
         }
         SetColors(Game.Grid);
         Tetromino.CreatePiece();
+        SetMoveRightFunction(MoveRight);
+        SetMoveLeftFunction(MoveLeft);
+        SetRushFunction(Rush);
         SetTickFunction(Test);
     }
 
     public static void Test(){
+        for (int i=21;i>0;i--){
+            Game.Grid[i] = Game.Grid[i-1];
+        }
+        List<SquareColor> Ligne = new List<SquareColor>();
+        for (int j = 0;j<10;j++){
+            Ligne.Add(SquareColor.TRANSPARENT);
+        }
+        Game.Grid[0] = Ligne;
         SetColors(Game.Grid);
     }
 
@@ -78,6 +89,37 @@ public class GridDisplay : MonoBehaviour
         _grid.MoveLeft = function;
     }
 
+    public static void MoveRight(){
+           for (int i=0;i<22;i++){
+            for (int j=9;j>0;j--){
+                Game.Grid[i][j] = Game.Grid[i][j-1];
+            }
+            Game.Grid[i][0] = SquareColor.TRANSPARENT;
+        }
+        SetColors(Game.Grid);
+    }
+
+    public static void MoveLeft(){
+        for (int i=0;i<22;i++){
+            for (int j=0;j<9;j++){
+                Game.Grid[i][j] = Game.Grid[i][j+1];
+            }
+            Game.Grid[i][9] = SquareColor.TRANSPARENT;
+        }
+        SetColors(Game.Grid);
+    }
+
+    public static void Rush(){
+          for (int i=21;i>0;i--){
+            Game.Grid[i] = Game.Grid[i-1];
+        }
+        List<SquareColor> Ligne = new List<SquareColor>();
+        for (int j = 0;j<10;j++){
+            Ligne.Add(SquareColor.TRANSPARENT);
+        }
+        Game.Grid[0] = Ligne;
+        SetColors(Game.Grid);
+    }
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
     // pour bouger la pièce vers la droite.
     // Cette fonction peut être une méthode d'une autre classe
