@@ -50,6 +50,7 @@ public class GridDisplay : MonoBehaviour
         SetMoveRightFunction(MoveRight);
         SetMoveLeftFunction(MoveLeft);
         SetRushFunction(Rush);
+        SetRotateFunction(Rotate);
         SetTickFunction(Test);
     }
 
@@ -90,6 +91,13 @@ public class GridDisplay : MonoBehaviour
     }
 
     public static void MoveRight(){
+           bool canMoveRight = true;
+           for (int i=0;i<22;i++){
+            if (Game.Grid[i][9] != SquareColor.TRANSPARENT){
+                canMoveRight = false;
+            }
+           }
+           if (canMoveRight){
            for (int i=0;i<22;i++){
             for (int j=9;j>0;j--){
                 Game.Grid[i][j] = Game.Grid[i][j-1];
@@ -97,6 +105,7 @@ public class GridDisplay : MonoBehaviour
             Game.Grid[i][0] = SquareColor.TRANSPARENT;
         }
         SetColors(Game.Grid);
+    }
     }
 
     public static void MoveLeft(){
@@ -120,6 +129,17 @@ public class GridDisplay : MonoBehaviour
         Game.Grid[0] = Ligne;
         SetColors(Game.Grid);
     }
+
+    public static void Rotate(){
+        // for (int i=0;i<22;i++){
+        //     for (int j=0;j<10;j++){
+        //         Game.Grid[i][j] = Game.Grid[j][i];
+        //     }
+        // }
+        // SetColors(Game.Grid);
+        Debug.Log("Rotate");
+ }
+    
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
     // pour bouger la pièce vers la droite.
     // Cette fonction peut être une méthode d'une autre classe
