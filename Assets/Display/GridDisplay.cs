@@ -87,6 +87,21 @@ public class GridDisplay : MonoBehaviour
             }
         }
     }
+    public static void update score(){
+        int score = 0;
+        for (int i=0;i<22;i++){
+            bool ligne = true;
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] == SquareColor.TRANSPARENT){
+                    ligne = false;
+                }
+            }
+            if (ligne){
+                score += 100;
+            }
+        }
+        SetScore(score);
+    }
     // Paramètre la fonction devant être appelée à chaque tick. 
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
     // Cette fonction peut être une méthode d'une autre classe
