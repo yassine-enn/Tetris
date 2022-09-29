@@ -38,15 +38,18 @@ public class GridDisplay : MonoBehaviour
                 Ligne.Add(SquareColor.TRANSPARENT);
             }
             Game.Grid.Add(Ligne);
+            Game.Grid2.Add(new List<SquareColor>(Ligne));
+            Game.Grid3.Add(new List<SquareColor>(Ligne));
         }
-        SetColors(Game.Grid);
         Tetromino.CreatePiece();
         SetMoveRightFunction(MoveRight);
         SetMoveLeftFunction(MoveLeft);
         SetRushFunction(Rush);
         SetRotateFunction(Rotate);
-        SetTickFunction(Test);
-    }
+        SetColors(Game.Grid3);
+           SetTickFunction(Test);
+    
+        }
     public static void Test(){
         for (int j=0;j<10;j++){
             if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
@@ -64,9 +67,24 @@ public class GridDisplay : MonoBehaviour
             Ligne.Add(SquareColor.TRANSPARENT);
         }
         Game.Grid[0] = Ligne;
-        SetColors(Game.Grid);
+        Game.InitGrid3();
+        SetColors(Game.Grid3);
     }
-    }
+     if (!Tetromino.canMoveDown){
+            Game.BuildGrid2();
+            Game.InitGrid();
+            Tetromino.canMoveDown = true;
+            Tetromino.canMoveRight = true;  
+            Tetromino.canMoveLeft = true;
+            Debug.Log("can move down :"+Tetromino.canMoveDown);
+            Tetromino.CreatePiece();
+            Game.InitGrid3();
+            SetColors(Game.Grid3);
+     }
+        SetColors(Game.Grid3);
+        Debug.Log("canMoveDown"+Tetromino.canMoveDown);
+        }
+        
     // Paramètre la fonction devant être appelée à chaque tick. 
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
     // Cette fonction peut être une méthode d'une autre classe
@@ -103,7 +121,8 @@ public class GridDisplay : MonoBehaviour
             }
             Game.Grid[i][0] = SquareColor.TRANSPARENT;
         }
-        SetColors(Game.Grid);
+        Game.InitGrid3();   
+        SetColors(Game.Grid3);
     }
     }
     public static void MoveLeft(){
@@ -120,7 +139,8 @@ public class GridDisplay : MonoBehaviour
             }
             Game.Grid[i][9] = SquareColor.TRANSPARENT;
         }
-        SetColors(Game.Grid);
+        Game.InitGrid3();
+        SetColors(Game.Grid3);
     }
     }
     public static void Rush(){
@@ -140,77 +160,12 @@ public class GridDisplay : MonoBehaviour
             Ligne.Add(SquareColor.TRANSPARENT);
         }
         Game.Grid[0] = Ligne;
-        SetColors(Game.Grid);
+        Game.InitGrid3();
+        SetColors(Game.Grid3);
     }
     }
     public static void Rotate(){
-        //rotation point is the center of the piece
-        //rotation is clockwise
-        //rotation is done by switching the values of the squares
-        //find the rotation point
-        int rotationPointX = 0;
-        int rotationPointY = 0;
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    rotationPointX = j;
-                    rotationPointY = i;
-                }
-            }
-        }
-        //find the squares to switch
-        List<int> x = new List<int>();
-        List<int> y = new List<int>();
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    x.Add(j);
-                    y.Add(i);
-                }
-            }
-        }
-        //switch the squares
-        for (int i=0;i<x.Count;i++){
-            int temp = x[i];
-            x[i] = y[i];
-            y[i] = temp;
-        }
-        for (int i=0;i<x.Count;i++){
-            x[i] = x[i] - rotationPointX;
-            y[i] = y[i] - rotationPointY;
-        }
-        for (int i=0;i<x.Count;i++){
-            int temp = x[i];
-            x[i] = -y[i];
-            y[i] = temp;
-        }
-        for (int i=0;i<x.Count;i++){
-            x[i] = x[i] + rotationPointX;
-            y[i] = y[i] + rotationPointY;
-        }
-        //check if the squares are in the grid
-        for (int i=0;i<x.Count;i++){
-            if (x[i] < 0 || x[i] > 9 || y[i] < 0 || y[i] > 21){
-                Tetromino.canRotate = false;
-            }
-        }
-        //check if the squares are empty
-        for (int i=0;i<x.Count;i++){
-            if (Game.Grid[y[i]][x[i]] != SquareColor.TRANSPARENT){
-                Tetromino.canRotate = false;
-            }
-        }
-        if (Tetromino.canRotate){
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                Game.Grid[i][j] = SquareColor.TRANSPARENT;
-            }
-        }
-        for (int i=0;i<x.Count;i++){
-            Game.Grid[y[i]][x[i]] = SquareColor.RED;
-        }
-        SetColors(Game.Grid);
- }
+       Debug.Log("Rotate");
     }
     
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
@@ -231,6 +186,7 @@ public class GridDisplay : MonoBehaviour
     public static void SetTickTime(float seconds){
         _grid.tick = seconds;
     }
+
     // Modifie toutes les couleurs de chaque case de la grille.
     // Cette fonction doit prendre en argument un tableau de LIGNES, de haut vers le bas, contenant 
     // des couleurs de case allant de gauche vers la droite.
