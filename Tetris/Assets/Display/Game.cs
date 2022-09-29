@@ -16,6 +16,6 @@ public static class Game{
             Grid2.Add(new List<SquareColor>(Ligne));
             Grid3.Add(new List<SquareColor>(Ligne));
         }
-        
+
     }
 }
