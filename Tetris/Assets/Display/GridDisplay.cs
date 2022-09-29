@@ -67,6 +67,7 @@ public class GridDisplay : MonoBehaviour
         SetColors(Game.Grid);
     }
     }
+    
     // Paramètre la fonction devant être appelée à chaque tick. 
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
     // Cette fonction peut être une méthode d'une autre classe
