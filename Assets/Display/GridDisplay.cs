@@ -72,14 +72,15 @@ public class GridDisplay : MonoBehaviour
     }
      if (!Tetromino.canMoveDown){
             Game.BuildGrid2();
+            Game.InitGrid3();
             Game.InitGrid();
+            SetColors(Game.Grid3);
             Tetromino.canMoveDown = true;
             Tetromino.canMoveRight = true;  
             Tetromino.canMoveLeft = true;
             Debug.Log("can move down :"+Tetromino.canMoveDown);
             Tetromino.CreatePiece();
-            Game.InitGrid3();
-            SetColors(Game.Grid3);
+            Game.InitGrid3();   
      }
         SetColors(Game.Grid3);
         Debug.Log("canMoveDown"+Tetromino.canMoveDown);

@@ -16,7 +16,7 @@ public static class Game{
             }
             if (Grid[i][j] != SquareColor.TRANSPARENT){
                 Grid3[i][j] = Grid[i][j];
-            }else{
+            }if (Grid2[i][j] == SquareColor.TRANSPARENT && Grid[i][j] == SquareColor.TRANSPARENT){
                 Grid3[i][j] = SquareColor.TRANSPARENT;
             }   
         }
@@ -32,9 +32,8 @@ public static class Game{
             Grid.Add(Ligne);
         }
     }
-
     public static void BuildGrid2(){
-        for(int i = 0; i < 22; i++){
+        for(int i = 0; i<22; i++){
             for(int j=0; j<10; j++){
                 if (Grid[i][j] != SquareColor.TRANSPARENT){
                     Grid2[i][j] = Grid[i][j];
