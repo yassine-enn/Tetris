@@ -19,7 +19,6 @@ public class GridDisplay : MonoBehaviour
     // Largeur de la grille en nombre de cases
     public int width = 10;
     
-    
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         //Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
@@ -47,10 +46,11 @@ public class GridDisplay : MonoBehaviour
         SetRushFunction(Rush);
         SetRotateFunction(Rotate);
         SetColors(Game.Grid3);
-           SetTickFunction(Test);
+        SetTickFunction(Test);
     
         }
     public static void Test(){
+        DeleteLine();
         for (int j=0;j<10;j++){
             if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
@@ -148,6 +148,7 @@ public class GridDisplay : MonoBehaviour
     public static void Rush(){
        for (int j=0;j<10;j++){
            if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
+               DeleteLine();
                Tetromino.canMoveDown = false;
                Tetromino.canMoveLeft = false;
                Tetromino.canMoveRight = false;
@@ -169,6 +170,26 @@ public class GridDisplay : MonoBehaviour
     public static void Rotate(){
        Debug.Log("Rotate");
     }
+
+    public static void DeleteLine(){
+        for (int i=0;i<22;i++){
+            bool isFull = true;
+            for (int j=0;j<10;j++){
+                if (Game.Grid2[i][j] == SquareColor.TRANSPARENT){
+                    isFull = false;
+                }
+            }
+            if (isFull){
+                for (int k=0;k<22;k++){
+                    for(int l=0;l<10;l++){
+                        Game.Grid2[k][l] = SquareColor.TRANSPARENT;
+                    }
+                }
+                Game.InitGrid3();
+                SetColors(Game.Grid3);
+            }
+        }
+    }
     
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
     // pour bouger la pièce vers la droite.
@@ -188,6 +209,7 @@ public class GridDisplay : MonoBehaviour
     public static void SetTickTime(float seconds){
         _grid.tick = seconds;
     }
+
 
     // Modifie toutes les couleurs de chaque case de la grille.
     // Cette fonction doit prendre en argument un tableau de LIGNES, de haut vers le bas, contenant 
