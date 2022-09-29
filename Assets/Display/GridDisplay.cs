@@ -32,13 +32,13 @@ public class GridDisplay : MonoBehaviour
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
         // changer la couleur de la case en haut au centre de la grille
+        Game.InitGrid2();
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
                 Ligne.Add(SquareColor.TRANSPARENT);
             }
             Game.Grid.Add(Ligne);
-            Game.Grid2.Add(new List<SquareColor>(Ligne));
             Game.Grid3.Add(new List<SquareColor>(Ligne));
         }
         Tetromino.CreatePiece();
@@ -71,6 +71,7 @@ public class GridDisplay : MonoBehaviour
         SetColors(Game.Grid3);
     }
      if (!Tetromino.canMoveDown){
+            Debug.Log("can move down" + Tetromino.canMoveDown);
             Game.BuildGrid2();
             Game.InitGrid3();
             Game.InitGrid();
