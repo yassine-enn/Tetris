@@ -5,7 +5,7 @@ using UnityEngine;
 public class _Square : MonoBehaviour
 {
     public SquareColor color = SquareColor.TRANSPARENT;
-    private Color actualColor {
+    private Color actualColor { 
         get {
             return getColor();
         }
@@ -25,7 +25,7 @@ public class _Square : MonoBehaviour
         }
     }
 
-    private Color getColor(){
+    private Color getColor(){  //get the color of the square
         switch(color){
             case SquareColor.LIGHT_BLUE:
             return new Color(0.25f,0.52f,0.96f);
@@ -44,7 +44,7 @@ public class _Square : MonoBehaviour
             case SquareColor.TRANSPARENT:
             return new Color(0.2f,0.2f,0.2f);
             default:
-            return new Color(0.0f,0.0f,0.0f,0.0f);//transparent
+            return new Color(0.0f,0.0f,0.0f,0.0f);
         }
     }
 }
