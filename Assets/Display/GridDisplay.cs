@@ -66,6 +66,26 @@ public class GridDisplay : MonoBehaviour
         Game.Grid[0] = Ligne;
         SetColors(Game.Grid);
     }
+    public static void deleteligne(){
+        for (int i=0;i<22;i--){
+            bool ligne = true;
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] == SquareColor.TRANSPARENT){
+                    ligne = false;
+                }
+            }
+            if (ligne){
+                for (int k=i;k>0;k--){
+                    Game.Grid[k] = Game.Grid[k-1];
+                }
+                List<SquareColor> Ligne = new List<SquareColor>();
+                for (int j = 0;j<10;j++){
+                    Ligne.Add(SquareColor.TRANSPARENT);
+                }
+                Game.Grid[0] = Ligne;
+                SetColors(Game.Grid);
+            }
+        }
     }
     // Paramètre la fonction devant être appelée à chaque tick. 
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
