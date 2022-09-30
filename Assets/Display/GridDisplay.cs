@@ -18,6 +18,8 @@ public class GridDisplay : MonoBehaviour
     public int height = 22;
     // Largeur de la grille en nombre de cases
     public int width = 10;
+
+    public static int score = 0;
     
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
@@ -50,13 +52,16 @@ public class GridDisplay : MonoBehaviour
     
         }
     public static void Test(){
-        DeleteLine();
+        TouchColor();
+        SetScore(score);
         for (int j=0;j<10;j++){
+           for (int i=21;i>0;i--){
             if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
                 Tetromino.canMoveLeft = false;
                 Tetromino.canMoveRight = false;
             }
+        }
         }
         if (Tetromino.canMoveDown){
         for (int i=21;i>0;i--){
@@ -67,10 +72,8 @@ public class GridDisplay : MonoBehaviour
             Ligne.Add(SquareColor.TRANSPARENT);
         }
         Game.Grid[0] = Ligne;
-        Game.InitGrid3();
-        SetColors(Game.Grid3);
-    }
-     if (!Tetromino.canMoveDown){
+        }
+     if (!Tetromino.canMoveDown && !Tetromino.canMoveLeft && !Tetromino.canMoveRight){
             Debug.Log("can move down" + Tetromino.canMoveDown);
             Game.BuildGrid2();
             Game.InitGrid3();
@@ -83,9 +86,12 @@ public class GridDisplay : MonoBehaviour
             Tetromino.CreatePiece();
             Game.InitGrid3();   
      }
+        DeleteLine();
+        Debug.Log("test");
+        Game.InitGrid3();
         SetColors(Game.Grid3);
         Debug.Log("canMoveDown"+Tetromino.canMoveDown);
-        }
+    }
         
     // Paramètre la fonction devant être appelée à chaque tick. 
     // C'est ici que le gros de la logique temporelle de votre jeu aura lieu! 
@@ -153,7 +159,7 @@ public class GridDisplay : MonoBehaviour
                Tetromino.canMoveLeft = false;
                Tetromino.canMoveRight = false;
            }
-       }
+           }
         if (Tetromino.canMoveDown){
           for (int i=21;i>0;i--){
             Game.Grid[i] = Game.Grid[i-1];
@@ -177,20 +183,33 @@ public class GridDisplay : MonoBehaviour
             for (int j=0;j<10;j++){
                 if (Game.Grid2[i][j] == SquareColor.TRANSPARENT){
                     isFull = false;
+                    break;
                 }
             }
             if (isFull){
-                for (int k=0;k<22;k++){
                     for(int l=0;l<10;l++){
-                        Game.Grid2[k][l] = SquareColor.TRANSPARENT;
+                        Game.Grid2[i][l] = SquareColor.TRANSPARENT;
                     }
                 }
                 Game.InitGrid3();
                 SetColors(Game.Grid3);
             }
         }
-    }
     
+    public static void TouchColor(){
+        for (int i=0;i<21;i++){
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT ){
+                    if (Game.Grid2[i+1][j] != SquareColor.TRANSPARENT || i==20){
+                        Tetromino.canMoveDown = false;
+                        Tetromino.canMoveLeft = false;
+                        Tetromino.canMoveRight = false;
+                    }
+                }
+            }
+        }
+    }
+  
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
     // pour bouger la pièce vers la droite.
     // Cette fonction peut être une méthode d'une autre classe
