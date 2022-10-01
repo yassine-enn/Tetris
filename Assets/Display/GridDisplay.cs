@@ -217,6 +217,7 @@ public class GridDisplay : MonoBehaviour
                         Game.Grid2[i][l] = SquareColor.TRANSPARENT;
                     }
                 }
+                SetScore(score);
                 Game.InitGrid3();
                 SetColors(Game.Grid3);
             }
@@ -291,16 +292,33 @@ public class GridDisplay : MonoBehaviour
         for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    newCoordinates.Add(new Vector2(i,j));
+                    Tetromino.count += 1;
                     Tetromino.color = Game.Grid[i][j];
+                    if (Tetromino.count == 2 && Tetromino.color==SquareColor.LIGHT_BLUE){
+                        Tetromino.centerX = i;
+                        Tetromino.centerY = j;
+                    }
+                    if (Tetromino.count == 4 && Tetromino.color == SquareColor.GREEN){
+                        Tetromino.centerX = i;
+                        Tetromino.centerY = j;
+                    }
+                    if (Tetromino.count ==3){
+                        Tetromino.centerX = i;
+                        Tetromino.centerY = j;
+                    }
                 }
             }
         }
-        //rotate the coordinates by 90°
-        for (int i=0;i<newCoordinates.Count;i++){
-            float x = newCoordinates[i].x;
-            float y = newCoordinates[i].y;
-            newCoordinates[i] = new Vector2(y,21-x);
+        //for each square in the list, calculate its new coordinates
+        for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
+                    Vector2 newCoordinate = new Vector2();
+                    newCoordinate.x = Tetromino.centerX - (j - Tetromino.centerY);
+                    newCoordinate.y = Tetromino.centerY + (i - Tetromino.centerX);
+                    newCoordinates.Add(newCoordinate);
+                }
+            }
         }
         //check if the new coordinates are in the grid
         for (int i=0;i<newCoordinates.Count;i++){
@@ -308,13 +326,13 @@ public class GridDisplay : MonoBehaviour
                 return;
             }
         }
-        //check if the new coordinates are not on another tetromino
+        //check if the new coordinates are not already occupied
         for (int i=0;i<newCoordinates.Count;i++){
             if (Game.Grid2[(int)newCoordinates[i].x][(int)newCoordinates[i].y] != SquareColor.TRANSPARENT){
                 return;
             }
         }
-        //if the new coordinates are in the grid and not on another tetromino, delete the old tetromino
+        //if the new coordinates are valid, change the grid
         for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
@@ -322,12 +340,10 @@ public class GridDisplay : MonoBehaviour
                 }
             }
         }
-        //put the new tetromino in the grid
         for (int i=0;i<newCoordinates.Count;i++){
             Game.Grid[(int)newCoordinates[i].x][(int)newCoordinates[i].y] = Tetromino.color;
         }
-        //update the grid
-        Game.InitGrid3();
+        Tetromino.count = 0;
     }
 /// Les lignes au delà de celle-ci ne vous concernent pas.
     private static _GridDisplay _grid = null;
