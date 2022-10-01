@@ -117,6 +117,14 @@ public class GridDisplay : MonoBehaviour
     }
     public static void MoveRight(){
         //    bool canMoveRight = true;
+            for (int i=0;i<22;i++){
+            for (int j=0;j<9;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i][j+1] != SquareColor.TRANSPARENT){
+                    Tetromino.canMoveLeft = true;
+                    Tetromino.canMoveRight = false;
+                }
+                }
+            }
            for (int i=0;i<22;i++){
             if (Game.Grid[i][9] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveRight = false;
@@ -136,6 +144,14 @@ public class GridDisplay : MonoBehaviour
     }
     public static void MoveLeft(){
         for (int i=0;i<22;i++){
+            for (int j=0;j<9;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i][j-1] != SquareColor.TRANSPARENT){
+                    Tetromino.canMoveLeft = false;
+                    Tetromino.canMoveRight = true;
+                }
+                }
+            }
+        for (int i=0;i<22;i++){
             if (Game.Grid[i][0]!= SquareColor.TRANSPARENT){
                 Tetromino.canMoveLeft = false;
                 Tetromino.canMoveRight = true;
@@ -153,6 +169,13 @@ public class GridDisplay : MonoBehaviour
     }
     }
     public static void Rush(){
+    for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i+1][j] != SquareColor.TRANSPARENT){
+                    Tetromino.canMoveDown = false;
+                    }
+            }
+        }
        for (int j=0;j<10;j++){
            if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
                DeleteLine();
@@ -161,6 +184,7 @@ public class GridDisplay : MonoBehaviour
                Tetromino.canMoveRight = false;
            }
            }
+
         if (Tetromino.canMoveDown){
           for (int i=21;i>0;i--){
             Game.Grid[i] = Game.Grid[i-1];
@@ -173,7 +197,7 @@ public class GridDisplay : MonoBehaviour
         Game.InitGrid3();
         SetColors(Game.Grid3);
     }
-    }
+}
     public static void Rotate(){
        Debug.Log("Rotate");
     }
