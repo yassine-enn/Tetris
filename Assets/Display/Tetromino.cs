@@ -13,6 +13,13 @@ public class Tetromino {
     public static bool canRotate = true;
     public static int rotated = 0;
 
+    public static int count = 0;
+    public static int centerX = 0;
+    public static int centerY = 0;
+
+
+    public static SquareColor color = SquareColor.TRANSPARENT;
+
     public static void CreatePiece(){
         Random rand = new Random();
         int piece = rand.Next(0,7);

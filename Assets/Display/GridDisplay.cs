@@ -46,7 +46,7 @@ public class GridDisplay : MonoBehaviour
         SetMoveRightFunction(MoveRight);
         SetMoveLeftFunction(MoveLeft);
         SetRushFunction(Rush);
-        SetRotateFunction(Rotate);
+        SetRotateFunction(RotateTetromino);
         SetColors(Game.Grid3);
         SetTickFunction(Test);
     
@@ -259,7 +259,52 @@ public class GridDisplay : MonoBehaviour
             }
         }
     }
-  
+
+    public static void RotateTetromino(){
+        //create a new list of coordinates
+        List<Vector2> newCoordinates = new List<Vector2>();
+        //if a square is colored in the grid put its coordinates in the new list
+        for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
+                    newCoordinates.Add(new Vector2(i,j));
+                    Tetromino.color = Game.Grid[i][j];
+                }
+            }
+        }
+        //rotate the coordinates by 90°
+        for (int i=0;i<newCoordinates.Count;i++){
+            float x = newCoordinates[i].x;
+            float y = newCoordinates[i].y;
+            newCoordinates[i] = new Vector2(y,21-x);
+        }
+        //check if the new coordinates are in the grid
+        for (int i=0;i<newCoordinates.Count;i++){
+            if (newCoordinates[i].x < 0 || newCoordinates[i].x > 21 || newCoordinates[i].y < 0 || newCoordinates[i].y > 9){
+                return;
+            }
+        }
+        //check if the new coordinates are not on another tetromino
+        for (int i=0;i<newCoordinates.Count;i++){
+            if (Game.Grid2[(int)newCoordinates[i].x][(int)newCoordinates[i].y] != SquareColor.TRANSPARENT){
+                return;
+            }
+        }
+        //if the new coordinates are in the grid and not on another tetromino, delete the old tetromino
+        for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
+                    Game.Grid[i][j] = SquareColor.TRANSPARENT;
+                }
+            }
+        }
+        //put the new tetromino in the grid
+        for (int i=0;i<newCoordinates.Count;i++){
+            Game.Grid[(int)newCoordinates[i].x][(int)newCoordinates[i].y] = Tetromino.color;
+        }
+        //update the grid
+        Game.InitGrid3();
+    }
 /// Les lignes au delà de celle-ci ne vous concernent pas.
     private static _GridDisplay _grid = null;
     void Awake() 
