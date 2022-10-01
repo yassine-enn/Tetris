@@ -16,7 +16,6 @@ public class Tetromino {
     public static void CreatePiece(){
         Random rand = new Random();
         int piece = rand.Next(0,7);
-        piece = 3;
         switch(piece){
             case 0:
                 CreateI();

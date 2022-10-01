@@ -187,6 +187,7 @@ public class GridDisplay : MonoBehaviour
                 }
             }
             if (isFull){
+                    score += 100;
                     for(int l=0;l<10;l++){
                         Game.Grid2[i][l] = SquareColor.TRANSPARENT;
                     }
