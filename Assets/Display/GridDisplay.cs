@@ -86,6 +86,7 @@ public class GridDisplay : MonoBehaviour
             Tetromino.CreatePiece();
             Game.InitGrid3();   
      }
+        GameoverCheck();
         DeleteLine();
         Debug.Log("test");
         Game.InitGrid3();
@@ -246,6 +247,17 @@ public class GridDisplay : MonoBehaviour
     // Déclenche visuellement le GameOver et arrête le jeu.
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
+    }
+
+    public static void GameoverCheck(){
+        for (int i=0;i<10;i++){
+            if (Game.Grid2[0][i] != SquareColor.TRANSPARENT){
+                Tetromino.canMoveDown = false;
+                Tetromino.canMoveLeft = false;
+                Tetromino.canMoveRight = false;
+                TriggerGameOver();
+            }
+        }
     }
   
 /// Les lignes au delà de celle-ci ne vous concernent pas.
