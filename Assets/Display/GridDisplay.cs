@@ -11,7 +11,7 @@ using TMPro;
 // Gérer les rotations de la pièce en paramétrant la fonction Rotate
 // Faire descendre la pièce tout en bas en paramétrant la fonction Rush
 // Mettre à jour le score si une ligne est complétée, et la retirer de la grille (ce qui fait descendre le reste des éléments)
-// Déclencher l'évènement "Game Over" si une pièce touche le haut de la grille en se posant au sol.
+// Déclencher l'évènement "Grids Over" si une pièce touche le haut de la grille en se posant au sol.
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
@@ -33,30 +33,29 @@ public class GridDisplay : MonoBehaviour
         //
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
         // changer la couleur de la case en haut au centre de la grille
-        Game.InitGrid2();
+        Grids.InitGrid2();
         for (int i=0;i<22;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
             for (int j = 0;j<10;j++){
                 Ligne.Add(SquareColor.TRANSPARENT);
             }
-            Game.Grid.Add(Ligne);
-            Game.Grid3.Add(new List<SquareColor>(Ligne));
+            Grids.Grid.Add(Ligne);
+            Grids.Grid3.Add(new List<SquareColor>(Ligne));
         }
         Tetromino.CreatePiece();
-        SetMoveRightFunction(MoveRight);
-        SetMoveLeftFunction(MoveLeft);
-        SetRushFunction(Rush);
-        SetRotateFunction(RotateTetromino);
-        SetColors(Game.Grid3);
-        SetTickFunction(Test);
-    
+        SetMoveRightFunction(MovementFunctions.MoveRight);
+        SetMoveLeftFunction(MovementFunctions.MoveLeft);
+        // SetRushFunction(MovementFunctions.Rush);
+        SetRotateFunction(MovementFunctions.RotateTetromino);
+        SetColors(Grids.Grid3);
+        SetTickFunction(Tick);
         }
-    public static void Test(){
-        TouchColor();
+    public static void Tick(){
+        Game.TouchColor();
         SetScore(score);
         for (int j=0;j<10;j++){
            for (int i=21;i>0;i--){
-            if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
+            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT || Grids.Grid2[21][j] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
                 Tetromino.canMoveLeft = false;
                 Tetromino.canMoveRight = false;
@@ -65,32 +64,31 @@ public class GridDisplay : MonoBehaviour
         }
         if (Tetromino.canMoveDown){
         for (int i=21;i>0;i--){
-            Game.Grid[i] = Game.Grid[i-1];
+            Grids.Grid[i] = Grids.Grid[i-1];
         }
         List<SquareColor> Ligne = new List<SquareColor>();
         for (int j = 0;j<10;j++){
             Ligne.Add(SquareColor.TRANSPARENT);
         }
-        Game.Grid[0] = Ligne;
+        Grids.Grid[0] = Ligne;
         }
      if (!Tetromino.canMoveDown && !Tetromino.canMoveLeft && !Tetromino.canMoveRight){
             Debug.Log("can move down" + Tetromino.canMoveDown);
-            Game.BuildGrid2();
-            Game.InitGrid3();
-            Game.InitGrid();
-            SetColors(Game.Grid3);
+            Grids.BuildGrid2();
+            Grids.InitGrid3();
+            Grids.InitGrid();
+            SetColors(Grids.Grid3);
             Tetromino.canMoveDown = true;
             Tetromino.canMoveRight = true;  
             Tetromino.canMoveLeft = true;
             Debug.Log("can move down :"+Tetromino.canMoveDown);
             Tetromino.CreatePiece();
-            Game.InitGrid3();   
+            Grids.InitGrid3();   
      }
-        GameoverCheck();
-        DeleteLine();
-        Debug.Log("test");
-        Game.InitGrid3();
-        SetColors(Game.Grid3);
+        Game.GameoverCheck();
+        Game.DeleteLine();
+        Grids.InitGrid3();
+        SetColors(Grids.Grid3);
         Debug.Log("canMoveDown"+Tetromino.canMoveDown);
     }
         
@@ -115,128 +113,6 @@ public class GridDisplay : MonoBehaviour
     public static void SetMoveLeftFunction(MoveFunction function){  
         _grid.MoveLeft = function;
     }
-    public static void MoveRight(){
-        //    bool canMoveRight = true;
-            for (int i=0;i<22;i++){
-            for (int j=0;j<9;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i][j+1] != SquareColor.TRANSPARENT){
-                    Tetromino.canMoveLeft = true;
-                    Tetromino.canMoveRight = false;
-                }
-                }
-            }
-           for (int i=0;i<22;i++){
-            if (Game.Grid[i][9] != SquareColor.TRANSPARENT){
-                Tetromino.canMoveRight = false;
-                Tetromino.canMoveLeft = true;
-            }
-           }
-           if (Tetromino.canMoveRight){
-           for (int i=0;i<22;i++){
-            for (int j=9;j>0;j--){
-                Game.Grid[i][j] = Game.Grid[i][j-1];
-            }
-            Game.Grid[i][0] = SquareColor.TRANSPARENT;
-        }
-        Game.InitGrid3();   
-        SetColors(Game.Grid3);
-    }
-    }
-    public static void MoveLeft(){
-        for (int i=0;i<22;i++){
-            for (int j=0;j<9;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i][j-1] != SquareColor.TRANSPARENT){
-                    Tetromino.canMoveLeft = false;
-                    Tetromino.canMoveRight = true;
-                }
-                }
-            }
-        for (int i=0;i<22;i++){
-            if (Game.Grid[i][0]!= SquareColor.TRANSPARENT){
-                Tetromino.canMoveLeft = false;
-                Tetromino.canMoveRight = true;
-            }
-        }
-        if (Tetromino.canMoveLeft){
-        for (int i=0;i<22;i++){
-            for (int j=0;j<9;j++){
-                Game.Grid[i][j] = Game.Grid[i][j+1];
-            }
-            Game.Grid[i][9] = SquareColor.TRANSPARENT;
-        }
-        Game.InitGrid3();
-        SetColors(Game.Grid3);
-    }
-    }
-    public static void Rush(){
-    for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT && Game.Grid2[i+1][j] != SquareColor.TRANSPARENT){
-                    Tetromino.canMoveDown = false;
-                    }
-            }
-        }
-       for (int j=0;j<10;j++){
-           if (Game.Grid[21][j] != SquareColor.TRANSPARENT){
-               DeleteLine();
-               Tetromino.canMoveDown = false;
-               Tetromino.canMoveLeft = false;
-               Tetromino.canMoveRight = false;
-           }
-           }
-
-        if (Tetromino.canMoveDown){
-          for (int i=21;i>0;i--){
-            Game.Grid[i] = Game.Grid[i-1];
-        }
-        List<SquareColor> Ligne = new List<SquareColor>();
-        for (int j = 0;j<10;j++){
-            Ligne.Add(SquareColor.TRANSPARENT);
-        }
-        Game.Grid[0] = Ligne;
-        Game.InitGrid3();
-        SetColors(Game.Grid3);
-    }
-}
-    public static void Rotate(){
-       Debug.Log("Rotate");
-    }
-
-    public static void DeleteLine(){
-        for (int i=0;i<22;i++){
-            bool isFull = true;
-            for (int j=0;j<10;j++){
-                if (Game.Grid2[i][j] == SquareColor.TRANSPARENT){
-                    isFull = false;
-                    break;
-                }
-            }
-            if (isFull){
-                    score += 100;
-                    for(int l=0;l<10;l++){
-                        Game.Grid2[i][l] = SquareColor.TRANSPARENT;
-                    }
-                }
-                SetScore(score);
-                Game.InitGrid3();
-                SetColors(Game.Grid3);
-            }
-        }
-    
-    public static void TouchColor(){
-        for (int i=0;i<21;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT ){
-                    if (Game.Grid2[i+1][j] != SquareColor.TRANSPARENT || i==20){
-                        Tetromino.canMoveDown = false;
-                        Tetromino.canMoveLeft = false;
-                        Tetromino.canMoveRight = false;
-                    }
-                }
-            }
-        }
-    }
-  
     // Paramètre la fonction devant être appelée lorsqu'on appuie sur la flèche de droite 
     // pour bouger la pièce vers la droite.
     // Cette fonction peut être une méthode d'une autre classe
@@ -274,77 +150,7 @@ public class GridDisplay : MonoBehaviour
         _grid.TriggerGameOver();
     }
 
-    public static void GameoverCheck(){
-        for (int i=0;i<10;i++){
-            if (Game.Grid2[0][i] != SquareColor.TRANSPARENT){
-                Tetromino.canMoveDown = false;
-                Tetromino.canMoveLeft = false;
-                Tetromino.canMoveRight = false;
-                TriggerGameOver();
-            }
-        }
-    }
 
-    public static void RotateTetromino(){
-        //create a new list of coordinates
-        List<Vector2> newCoordinates = new List<Vector2>();
-        //if a square is colored in the grid put its coordinates in the new list
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    Tetromino.count += 1;
-                    Tetromino.color = Game.Grid[i][j];
-                    if (Tetromino.count == 2 && Tetromino.color==SquareColor.LIGHT_BLUE){
-                        Tetromino.centerX = i;
-                        Tetromino.centerY = j;
-                    }
-                    if (Tetromino.count == 4 && Tetromino.color == SquareColor.GREEN){
-                        Tetromino.centerX = i;
-                        Tetromino.centerY = j;
-                    }
-                    if (Tetromino.count ==3){
-                        Tetromino.centerX = i;
-                        Tetromino.centerY = j;
-                    }
-                }
-            }
-        }
-        //for each square in the list, calculate its new coordinates
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    Vector2 newCoordinate = new Vector2();
-                    newCoordinate.x = Tetromino.centerX - (j - Tetromino.centerY);
-                    newCoordinate.y = Tetromino.centerY + (i - Tetromino.centerX);
-                    newCoordinates.Add(newCoordinate);
-                }
-            }
-        }
-        //check if the new coordinates are in the grid
-        for (int i=0;i<newCoordinates.Count;i++){
-            if (newCoordinates[i].x < 0 || newCoordinates[i].x > 21 || newCoordinates[i].y < 0 || newCoordinates[i].y > 9){
-                return;
-            }
-        }
-        //check if the new coordinates are not already occupied
-        for (int i=0;i<newCoordinates.Count;i++){
-            if (Game.Grid2[(int)newCoordinates[i].x][(int)newCoordinates[i].y] != SquareColor.TRANSPARENT){
-                return;
-            }
-        }
-        //if the new coordinates are valid, change the grid
-        for (int i=0;i<22;i++){
-            for (int j=0;j<10;j++){
-                if (Game.Grid[i][j] != SquareColor.TRANSPARENT){
-                    Game.Grid[i][j] = SquareColor.TRANSPARENT;
-                }
-            }
-        }
-        for (int i=0;i<newCoordinates.Count;i++){
-            Game.Grid[(int)newCoordinates[i].x][(int)newCoordinates[i].y] = Tetromino.color;
-        }
-        Tetromino.count = 0;
-    }
 /// Les lignes au delà de celle-ci ne vous concernent pas.
     private static _GridDisplay _grid = null;
     void Awake() 
