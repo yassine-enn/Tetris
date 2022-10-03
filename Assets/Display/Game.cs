@@ -26,10 +26,10 @@ public class Game{
         }
     
     public static void TouchColor(){
-        for (int i=0;i<21;i++){
+        for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (Grids.Grid[i][j] != SquareColor.TRANSPARENT ){
-                    if (Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT || i==20){
+                    if ( i==21 || Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
                         Tetromino.canMoveDown = false;
                         Tetromino.canMoveLeft = false;
                         Tetromino.canMoveRight = false;

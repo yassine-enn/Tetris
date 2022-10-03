@@ -80,6 +80,9 @@ public class MovementFunctions {
                         Tetromino.centerX = i;
                         Tetromino.centerY = j;
                     }
+                    if (Tetromino.color == SquareColor.YELLOW){
+                        return;
+                    }
                     if (Tetromino.count ==3){
                         Tetromino.centerX = i;
                         Tetromino.centerY = j;
@@ -134,7 +137,7 @@ public class MovementFunctions {
 //         }
 //        for (int j=0;j<10;j++){
 //            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT){
-//                GridDisplay.DeleteLine();
+//                Game.DeleteLine();
 //                Tetromino.canMoveDown = false;
 //                Tetromino.canMoveLeft = false;
 //                Tetromino.canMoveRight = false;
@@ -154,5 +157,8 @@ public class MovementFunctions {
 //         GridDisplay.SetColors(Grids.Grid3);
 //     }
 // }
+public static void Rush(){
+    GridDisplay.SetTickTime(0.1f);
+}
 
 }
