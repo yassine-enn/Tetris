@@ -9,12 +9,13 @@ public class MovementFunctions {
     public delegate void MoveFunction ();
     public delegate void RushFunction ();
     public static void MoveRight(){
-        //    bool canMoveRight = true;
             for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
-                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j+1] != SquareColor.TRANSPARENT){
+                if (j<8 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j+1] != SquareColor.TRANSPARENT){
                     Tetromino.canMoveLeft = true;
                     Tetromino.canMoveRight = false;
+                }else{
+                    Tetromino.canMoveLeft = true;
                 }
                 }
             }
@@ -39,8 +40,10 @@ public class MovementFunctions {
      public static void MoveLeft(){
         for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
-                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j-1] != SquareColor.TRANSPARENT){
+                if (j>=1 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j-1] != SquareColor.TRANSPARENT){
                     Tetromino.canMoveLeft = false;
+                    Tetromino.canMoveRight = true;
+                }else{
                     Tetromino.canMoveRight = true;
                 }
                 }
@@ -61,7 +64,7 @@ public class MovementFunctions {
         Grids.InitGrid3();
         GridDisplay.SetColors(Grids.Grid3);
     }
-    }
+}
 
       public static void RotateTetromino(){
         //create a new list of coordinates
@@ -130,7 +133,7 @@ public class MovementFunctions {
      public static void Rush(){
     for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
-                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
+                if (i<21 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
                     Tetromino.canMoveDown = false;
                     }
             }
