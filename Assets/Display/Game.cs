@@ -18,6 +18,11 @@ public class Game{
                     for(int l=0;l<10;l++){
                         Grids.Grid2[i][l] = SquareColor.TRANSPARENT;
                     }
+                    for (int k=i;k>0;k--){
+                        for (int l=0;l<10;l++){
+                            Grids.Grid2[k][l] = Grids.Grid2[k-1][l];
+                        }
+                    }
                 }
                 GridDisplay.SetScore(GridDisplay.score);
                 Grids.InitGrid3();

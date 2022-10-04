@@ -11,7 +11,7 @@ using TMPro;
 // Gérer les rotations de la pièce en paramétrant la fonction Rotate
 // Faire descendre la pièce tout en bas en paramétrant la fonction Rush
 // Mettre à jour le score si une ligne est complétée, et la retirer de la grille (ce qui fait descendre le reste des éléments)
-// Déclencher l'évènement "Grids Over" si une pièce touche le haut de la grille en se posant au sol.
+// Déclencher l'évènement "Game Over" si une pièce touche le haut de la grille en se posant au sol.
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
@@ -45,8 +45,9 @@ public class GridDisplay : MonoBehaviour
         Tetromino.CreatePiece();
         SetMoveRightFunction(MovementFunctions.MoveRight);
         SetMoveLeftFunction(MovementFunctions.MoveLeft);
-        // SetRushFunction(MovementFunctions.Rush);
+        SetRushFunction(MovementFunctions.Rush);
         SetRotateFunction(MovementFunctions.RotateTetromino);
+        Grids.InitGrid3();
         SetColors(Grids.Grid3);
         SetTickFunction(Tick);
         }
@@ -55,7 +56,7 @@ public class GridDisplay : MonoBehaviour
         SetScore(score);
         for (int j=0;j<10;j++){
            for (int i=21;i>0;i--){
-            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT || Grids.Grid2[21][j] != SquareColor.TRANSPARENT){
+            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
                 Tetromino.canMoveLeft = false;
                 Tetromino.canMoveRight = false;

@@ -127,38 +127,38 @@ public class MovementFunctions {
         Tetromino.count = 0;
     }
 
-//      public static void Rush(){
-//     for (int i=0;i<22;i++){
-//             for (int j=0;j<10;j++){
-//                 if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
-//                     Tetromino.canMoveDown = false;
-//                     }
-//             }
-//         }
-//        for (int j=0;j<10;j++){
-//            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT){
-//                Game.DeleteLine();
-//                Tetromino.canMoveDown = false;
-//                Tetromino.canMoveLeft = false;
-//                Tetromino.canMoveRight = false;
-//            }
-//            }
+     public static void Rush(){
+    for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
+                    Tetromino.canMoveDown = false;
+                    }
+            }
+        }
+       for (int j=0;j<10;j++){
+           if (Grids.Grid[21][j] != SquareColor.TRANSPARENT){
+               Game.DeleteLine();
+               Tetromino.canMoveDown = false;
+               Tetromino.canMoveLeft = false;
+               Tetromino.canMoveRight = false;
+           }
+           }
 
-//         if (Tetromino.canMoveDown){
-//           for (int i=21;i>0;i--){
-//             Grids.Grid[i] = Grids.Grid[i-1];
-//         }
-//         List<SquareColor> Ligne = new List<SquareColor>();
-//         for (int j = 0;j<10;j++){
-//             Ligne.Add(SquareColor.TRANSPARENT);
-//         }
-//         Grids.Grid[0] = Ligne;
-//         Grids.InitGrid3();
-//         GridDisplay.SetColors(Grids.Grid3);
-//     }
-// }
-public static void Rush(){
-    GridDisplay.SetTickTime(0.1f);
+        if (Tetromino.canMoveDown){
+          for (int i=21;i>0;i--){
+            Grids.Grid[i] = Grids.Grid[i-1];
+        }
+        List<SquareColor> Ligne = new List<SquareColor>();
+        for (int j = 0;j<10;j++){
+            Ligne.Add(SquareColor.TRANSPARENT);
+        }
+        Grids.Grid[0] = Ligne;
+        Grids.InitGrid3();
+        GridDisplay.SetColors(Grids.Grid3);
+    }
 }
+// public static void Rush(){
+//     GridDisplay.SetTickTime(0.1f);
+// }
 
 }
