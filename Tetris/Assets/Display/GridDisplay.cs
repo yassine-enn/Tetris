@@ -18,7 +18,6 @@ public class GridDisplay : MonoBehaviour
     public static int height = 22;
     // Largeur de la grille en nombre de cases
     public static int width = 10;
-
     public static int score = 0;
     
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
@@ -130,8 +129,6 @@ public class GridDisplay : MonoBehaviour
     public static void SetTickTime(float seconds){
         _grid.tick = seconds;
     }
-
-
     // Modifie toutes les couleurs de chaque case de la grille.
     // Cette fonction doit prendre en argument un tableau de LIGNES, de haut vers le bas, contenant 
     // des couleurs de case allant de gauche vers la droite.
@@ -148,8 +145,6 @@ public class GridDisplay : MonoBehaviour
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
     }
-
-
 /// Les lignes au delà de celle-ci ne vous concernent pas.
     private static _GridDisplay _grid = null;
     void Awake() 
@@ -162,5 +157,3 @@ public class GridDisplay : MonoBehaviour
         Initialize();
     }
 }
-
-

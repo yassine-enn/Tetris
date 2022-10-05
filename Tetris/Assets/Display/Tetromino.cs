@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity = UnityEngine;
 using TMPro;
 using System;
-
 public class Tetromino {
     public static int X = 0;
     public static int Y=4;
@@ -14,10 +13,7 @@ public class Tetromino {
     public static int count = 0; // This variable is used to find the center of the tetromino (used for rotation) e.g the center of the I tetromino is the 2nd square from the left
     public static int centerX = 0; //This variable contains the x coordinate of the center of the tetromino
     public static int centerY = 0; //This variable contains the y coordinate of the center of the tetromino
-
-
     public static SquareColor color = SquareColor.TRANSPARENT;
-
     public static void CreatePiece(){ //Creates a new piece at the top of the screen randomly
         Random rand = new Random();
         int piece = rand.Next(0,7);
