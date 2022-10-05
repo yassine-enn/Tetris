@@ -34,9 +34,9 @@ public class GridDisplay : MonoBehaviour
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
         // changer la couleur de la case en haut au centre de la grille
         Grids.InitGrid2();
-        for (int i=0;i<22;i++){
+        for (int i=0;i<height;i++){
             List<SquareColor> Ligne = new List<SquareColor>();
-            for (int j = 0;j<10;j++){
+            for (int j = 0;j<width;j++){
                 Ligne.Add(SquareColor.TRANSPARENT);
             }
             Grids.Grid.Add(Ligne);
@@ -54,9 +54,9 @@ public class GridDisplay : MonoBehaviour
     public static void Tick(){
         Game.TouchColor();
         SetScore(score);
-        for (int j=0;j<10;j++){
-           for (int i=21;i>0;i--){
-            if (Grids.Grid[21][j] != SquareColor.TRANSPARENT){
+        for (int j=0;j<width;j++){
+           for (int i=height-1;i>0;i--){
+            if (Grids.Grid[height-1][j] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
                 Tetromino.canMoveLeft = false;
                 Tetromino.canMoveRight = false;
@@ -64,11 +64,11 @@ public class GridDisplay : MonoBehaviour
         }
         }
         if (Tetromino.canMoveDown){
-        for (int i=21;i>0;i--){
+        for (int i=height-1;i>0;i--){
             Grids.Grid[i] = Grids.Grid[i-1];
         }
         List<SquareColor> Ligne = new List<SquareColor>();
-        for (int j = 0;j<10;j++){
+        for (int j = 0;j<width;j++){
             Ligne.Add(SquareColor.TRANSPARENT);
         }
         Grids.Grid[0] = Ligne;
