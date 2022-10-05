@@ -39,7 +39,7 @@ public class MovementFunctions {
      public static void MoveLeft(){
         for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
-                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j-1] != SquareColor.TRANSPARENT){
+                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j] != SquareColor.TRANSPARENT){
                     Tetromino.canMoveLeft = false;
                     Tetromino.canMoveRight = true;
                 }
