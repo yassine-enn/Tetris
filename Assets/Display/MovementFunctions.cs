@@ -9,6 +9,7 @@ public class MovementFunctions {
     public delegate void MoveFunction ();
     public delegate void RushFunction ();
     public static void MoveRight(){
+            Game.TouchColor();
             for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
                 if (j<8 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j+1] != SquareColor.TRANSPARENT){
@@ -38,6 +39,7 @@ public class MovementFunctions {
     }
 
      public static void MoveLeft(){
+        Game.TouchColor();
         for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
                 if (j>=1 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i][j-1] != SquareColor.TRANSPARENT){
@@ -93,44 +95,40 @@ public class MovementFunctions {
                 }
             }
         }
-        //for each square in the list, calculate its new coordinates
+        //for each square in the list, calculate its new coordinates newXBrickCenter = xPivot + x1 = xPivot + yPivot - yBrickCenter where pivot is the top left corner of the grid and brick center is tetrominocenter
         for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (Grids.Grid[i][j] != SquareColor.TRANSPARENT){
-                    Vector2 newCoordinate = new Vector2();
-                    newCoordinate.x = Tetromino.centerX - (j - Tetromino.centerY);
-                    newCoordinate.y = Tetromino.centerY + (i - Tetromino.centerX);
-                    newCoordinates.Add(newCoordinate);
+                    int newX = Tetromino.centerX + Tetromino.centerY - j;
+                    int newY = Tetromino.centerY - Tetromino.centerX + i;
+                    if (newX<0 || newX>21 || newY<0 || newY>9){
+                        return;
+                    }
+                    if (Grids.Grid2[newX][newY] != SquareColor.TRANSPARENT){
+                        return;
+                    }
+                    newCoordinates.Add(new Vector2(newX,newY));
                 }
             }
         }
-        //check if the new coordinates are in the grid
-        for (int i=0;i<newCoordinates.Count;i++){
-            if (newCoordinates[i].x < 0 || newCoordinates[i].x > 21 || newCoordinates[i].y < 0 || newCoordinates[i].y > 9){
-                return;
-            }
-        }
-        //check if the new coordinates are not already occupied
-        for (int i=0;i<newCoordinates.Count;i++){
-            if (Grids.Grid2[(int)newCoordinates[i].x][(int)newCoordinates[i].y] != SquareColor.TRANSPARENT){
-                return;
-            }
-        }
-        //if the new coordinates are valid, change the grid
+        //clear the grid
         for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
-                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT){
-                    Grids.Grid[i][j] = SquareColor.TRANSPARENT;
-                }
+                Grids.Grid[i][j] = SquareColor.TRANSPARENT;
             }
         }
+        //put the new coordinates in the grid
         for (int i=0;i<newCoordinates.Count;i++){
             Grids.Grid[(int)newCoordinates[i].x][(int)newCoordinates[i].y] = Tetromino.color;
         }
+        Grids.InitGrid3();
+        GridDisplay.SetColors(Grids.Grid3);
         Tetromino.count = 0;
     }
+       
 
      public static void Rush(){
+    Game.TouchColor();
     for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (i<21 && Grids.Grid[i][j] != SquareColor.TRANSPARENT && Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
