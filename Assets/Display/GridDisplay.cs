@@ -151,7 +151,6 @@ public class GridDisplay : MonoBehaviour
         _grid.TriggerGameOver();
     }
 
-
 /// Les lignes au delà de celle-ci ne vous concernent pas.
     private static _GridDisplay _grid = null;
     void Awake() 
