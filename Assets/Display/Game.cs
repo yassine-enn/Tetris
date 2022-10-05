@@ -35,6 +35,7 @@ public class Game{
             for (int j=0;j<10;j++){
                 if (Grids.Grid[i][j] != SquareColor.TRANSPARENT ){
                     if ( i==21 || Grids.Grid2[i+1][j] != SquareColor.TRANSPARENT){
+                        Tetromino.canRotate = false;
                         Tetromino.canMoveDown = false;
                         Tetromino.canMoveLeft = false;
                         Tetromino.canMoveRight = false;
@@ -54,4 +55,18 @@ public class Game{
             }
         }
     }
-}
+ public static void TouchFloor(){
+        for (int i=0;i<22;i++){
+            for (int j=0;j<10;j++){
+                if (Grids.Grid[i][j] != SquareColor.TRANSPARENT ){
+                    if ( i==21){
+                        Tetromino.canRotate = false;
+                        Tetromino.canMoveDown = false;
+                        Tetromino.canMoveLeft = false;
+                        Tetromino.canMoveRight = false;
+                    }
+                }
+            }
+        }
+    }
+ }

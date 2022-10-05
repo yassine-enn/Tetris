@@ -69,6 +69,12 @@ public class MovementFunctions {
 }
 
       public static void RotateTetromino(){
+        Game.TouchColor();
+        Game.TouchFloor();
+        if (!Tetromino.canRotate){
+            Tetromino.canRotate = true;
+            return;
+        }
         //create a new list of coordinates
         List<Vector2> newCoordinates = new List<Vector2>();
         //if a square is colored in the grid put its coordinates in the new list
@@ -102,11 +108,13 @@ public class MovementFunctions {
                     int newX = Tetromino.centerX + Tetromino.centerY - j;
                     int newY = Tetromino.centerY - Tetromino.centerX + i;
                     if (newX<0 || newX>21 || newY<0 || newY>9){
-                        Debug.Log("Can't rotate1");
+                        Tetromino.centerX = i;
+                        Tetromino.centerY = j;
                         return;
                     }
                     if (Grids.Grid2[newX][newY] != SquareColor.TRANSPARENT){
-                        Debug.Log("Can't rotate2");
+                        Tetromino.centerX = i;
+                        Tetromino.centerY = j;
                         return;
                     }
                     newCoordinates.Add(new Vector2(newX,newY));
@@ -119,12 +127,14 @@ public class MovementFunctions {
                 Grids.Grid[i][j] = SquareColor.TRANSPARENT;
             }
         }
+        // Grids.InitGrid();
         //put the new coordinates in the grid
         for (int i=0;i<newCoordinates.Count;i++){
             Grids.Grid[(int)newCoordinates[i].x][(int)newCoordinates[i].y] = Tetromino.color;
         }
         Grids.InitGrid3();
         GridDisplay.SetColors(Grids.Grid3);
+        Tetromino.color = SquareColor.TRANSPARENT;
         Tetromino.count = 0;
       }
        

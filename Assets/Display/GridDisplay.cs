@@ -15,9 +15,9 @@ using TMPro;
 public class GridDisplay : MonoBehaviour
 {
     // Hauteur de la grille en nombre de cases
-    public int height = 22;
+    public static int height = 22;
     // Largeur de la grille en nombre de cases
-    public int width = 10;
+    public static int width = 10;
 
     public static int score = 0;
     
@@ -74,7 +74,6 @@ public class GridDisplay : MonoBehaviour
         Grids.Grid[0] = Ligne;
         }
      if (!Tetromino.canMoveDown && !Tetromino.canMoveLeft && !Tetromino.canMoveRight){
-            // Debug.Log("can move down" + Tetromino.canMoveDown);
             Grids.BuildGrid2();
             Grids.InitGrid3();
             Grids.InitGrid();
@@ -82,7 +81,7 @@ public class GridDisplay : MonoBehaviour
             Tetromino.canMoveDown = true;
             Tetromino.canMoveRight = true;  
             Tetromino.canMoveLeft = true;
-            // Debug.Log("can move down :"+Tetromino.canMoveDown);
+            Tetromino.canRotate = true;
             Tetromino.CreatePiece();
             Grids.InitGrid3();   
      }
@@ -90,7 +89,6 @@ public class GridDisplay : MonoBehaviour
         Game.DeleteLine();
         Grids.InitGrid3();
         SetColors(Grids.Grid3);
-        // Debug.Log("canMoveDown"+Tetromino.canMoveDown);
     }
         
     // Paramètre la fonction devant être appelée à chaque tick. 
