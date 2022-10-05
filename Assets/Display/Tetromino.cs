@@ -48,122 +48,45 @@ public class Tetromino {
         }
     }
     public static void CreateI(){
-        Game.Grid[X][Y] = SquareColor.LIGHT_BLUE;
-        Game.Grid[X+1][Y] = SquareColor.LIGHT_BLUE;
-        Game.Grid[X+2][Y] = SquareColor.LIGHT_BLUE;
-        Game.Grid[X+3][Y] = SquareColor.LIGHT_BLUE;
+        Grids.Grid[X][Y] = SquareColor.LIGHT_BLUE;
+        Grids.Grid[X+1][Y] = SquareColor.LIGHT_BLUE;
+        Grids.Grid[X+2][Y] = SquareColor.LIGHT_BLUE;
+        Grids.Grid[X+3][Y] = SquareColor.LIGHT_BLUE;
     }
-        // Game.Grid[0][4] = SquareColor.LIGHT_BLUE;
-        // Game.Grid[1][4] = SquareColor.LIGHT_BLUE;
-        // Game.Grid[2][4] = SquareColor.LIGHT_BLUE;
-        // Game.Grid[3][4] = SquareColor.LIGHT_BLUE;
    public static void CreateJ(){
-        Game.Grid[X][Y] = SquareColor.DEEP_BLUE;
-        Game.Grid[X+1][Y] = SquareColor.DEEP_BLUE;
-        Game.Grid[X+2][Y] = SquareColor.DEEP_BLUE;
-        Game.Grid[X+2][Y-1] = SquareColor.DEEP_BLUE;
-        // Game.Grid[0][4] = SquareColor.DEEP_BLUE;
-        // Game.Grid[1][4] = SquareColor.DEEP_BLUE;
-        // Game.Grid[2][4] = SquareColor.DEEP_BLUE;
-        // Game.Grid[2][3] = SquareColor.DEEP_BLUE;
+        Grids.Grid[X][Y] = SquareColor.DEEP_BLUE;
+        Grids.Grid[X+1][Y] = SquareColor.DEEP_BLUE;
+        Grids.Grid[X+2][Y] = SquareColor.DEEP_BLUE;
+        Grids.Grid[X+2][Y-1] = SquareColor.DEEP_BLUE;
     }
    public static void CreateL(){
-        Game.Grid[X][Y] = SquareColor.ORANGE;
-        Game.Grid[X+1][Y] = SquareColor.ORANGE;
-        Game.Grid[X+2][Y] = SquareColor.ORANGE;
-        Game.Grid[X+2][Y+1] = SquareColor.ORANGE;
-        // Game.Grid[0][4] = SquareColor.ORANGE;
-        // Game.Grid[1][4] = SquareColor.ORANGE;
-        // Game.Grid[2][4] = SquareColor.ORANGE;
-        // Game.Grid[2][5] = SquareColor.ORANGE;
+        Grids.Grid[X][Y] = SquareColor.ORANGE;
+        Grids.Grid[X+1][Y] = SquareColor.ORANGE;
+        Grids.Grid[X+2][Y] = SquareColor.ORANGE;
+        Grids.Grid[X+2][Y+1] = SquareColor.ORANGE;
     }
    public static void CreateO(){
-        Game.Grid[X][Y] = SquareColor.YELLOW;
-        Game.Grid[X][Y+1] = SquareColor.YELLOW;
-        Game.Grid[X+1][Y] = SquareColor.YELLOW;
-        Game.Grid[X+1][Y+1] = SquareColor.YELLOW;
-        // Game.Grid[0][4] = SquareColor.YELLOW;
-        // Game.Grid[0][5] = SquareColor.YELLOW;
-        // Game.Grid[1][4] = SquareColor.YELLOW;
-        // Game.Grid[1][5] = SquareColor.YELLOW;
+        Grids.Grid[X][Y] = SquareColor.YELLOW;
+        Grids.Grid[X][Y+1] = SquareColor.YELLOW;
+        Grids.Grid[X+1][Y] = SquareColor.YELLOW;
+        Grids.Grid[X+1][Y+1] = SquareColor.YELLOW;
     }
    public static void CreateS(){
-        Game.Grid[X][Y] = SquareColor.GREEN;
-        Game.Grid[X][Y+1] = SquareColor.GREEN;
-        Game.Grid[X+1][Y-1] = SquareColor.GREEN;
-        Game.Grid[X+1][Y] = SquareColor.GREEN;
-        // Game.Grid[0][4] = SquareColor.GREEN;
-        // Game.Grid[0][5] = SquareColor.GREEN;
-        // Game.Grid[1][3] = SquareColor.GREEN;
-        // Game.Grid[1][4] = SquareColor.GREEN;
+        Grids.Grid[X][Y] = SquareColor.GREEN;
+        Grids.Grid[X][Y+1] = SquareColor.GREEN;
+        Grids.Grid[X+1][Y-1] = SquareColor.GREEN;
+        Grids.Grid[X+1][Y] = SquareColor.GREEN;
     }
     public static void CreateT(){
-        Game.Grid[X][Y] = SquareColor.PURPLE;
-        Game.Grid[X+1][Y-1] = SquareColor.PURPLE;
-        Game.Grid[X+1][Y] = SquareColor.PURPLE;
-        Game.Grid[X+1][Y+1] = SquareColor.PURPLE;
-        // Game.Grid[0][4] = SquareColor.PURPLE;
-        // Game.Grid[1][3] = SquareColor.PURPLE;
-        // Game.Grid[1][4] = SquareColor.PURPLE;
-        // Game.Grid[1][5] = SquareColor.PURPLE;
-        // if (rotated%4==0){
-        //     Game.Grid[0][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][3] = SquareColor.PURPLE;
-        //     Game.Grid[1][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][5] = SquareColor.PURPLE;
-        // }
-        // else if (rotated%4==1){
-        //     Game.Grid[0][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][4] = SquareColor.PURPLE;
-        //     Game.Grid[2][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][5] = SquareColor.PURPLE;
-        // }
-        // else if (rotated%4==2){
-        //     Game.Grid[0][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][3] = SquareColor.PURPLE;
-        //     Game.Grid[1][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][5] = SquareColor.PURPLE;
-        // }
-        // else if (rotated%4==3){
-        //     Game.Grid[0][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][4] = SquareColor.PURPLE;
-        //     Game.Grid[2][4] = SquareColor.PURPLE;
-        //     Game.Grid[1][5] = SquareColor.PURPLE;
-        // }
+        Grids.Grid[X][Y] = SquareColor.PURPLE;
+        Grids.Grid[X+1][Y-1] = SquareColor.PURPLE;
+        Grids.Grid[X+1][Y] = SquareColor.PURPLE;
+        Grids.Grid[X+1][Y+1] = SquareColor.PURPLE;
     }
   public static void CreateZ(){
-        Game.Grid[X][Y-1] = SquareColor.RED;
-        Game.Grid[X][Y] = SquareColor.RED;
-        Game.Grid[X+1][Y] = SquareColor.RED;
-        Game.Grid[X+1][Y+1] = SquareColor.RED;
-        // Game.Grid[0][3] = SquareColor.RED;
-        // Game.Grid[0][4] = SquareColor.RED;
-        // Game.Grid[1][4] = SquareColor.RED;
-        // Game.Grid[1][5] = SquareColor.RED;
-        // if (rotated%4 == 0){
-        //     Game.Grid[0][3] = SquareColor.RED;
-        //     Game.Grid[0][4] = SquareColor.RED;
-        //     Game.Grid[1][4] = SquareColor.RED;
-        //     Game.Grid[1][5] = SquareColor.RED;
-        // }
-        // else if (rotated%4 == 1){
-        //     Game.Grid[0][4] = SquareColor.RED;
-        //     Game.Grid[1][4] = SquareColor.RED;
-        //     Game.Grid[1][5] = SquareColor.RED;
-        //     Game.Grid[2][5] = SquareColor.RED;
-        // }
-        // else if (rotated%4 == 2){
-        //     Game.Grid[1][3] = SquareColor.RED;
-        //     Game.Grid[1][4] = SquareColor.RED;
-        //     Game.Grid[2][4] = SquareColor.RED;
-        //     Game.Grid[2][5] = SquareColor.RED;
-        // }
-        // else if (rotated%4 == 3){
-        //     Game.Grid[0][3] = SquareColor.RED;
-        //     Game.Grid[1][3] = SquareColor.RED;
-        //     Game.Grid[1][4] = SquareColor.RED;
-        //     Game.Grid[2][4] = SquareColor.RED;
-        // }
+        Grids.Grid[X][Y-1] = SquareColor.RED;
+        Grids.Grid[X][Y] = SquareColor.RED;
+        Grids.Grid[X+1][Y] = SquareColor.RED;
+        Grids.Grid[X+1][Y+1] = SquareColor.RED;
     } 
-    
 }

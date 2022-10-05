@@ -38,9 +38,11 @@
   <ItemGroup>
      <Compile Include="Assets\Internal\_GridDisplay.cs" />
      <Compile Include="Assets\Display\SquareColor.cs" />
+     <Compile Include="Assets\Display\MovementFunctions.cs" />
      <Compile Include="Assets\Internal\_Square.cs" />
      <Compile Include="Assets\Display\Game.cs" />
      <Compile Include="Assets\Display\Tetromino.cs" />
+     <Compile Include="Assets\Display\Grids.cs" />
      <Compile Include="Assets\Display\GridDisplay.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
