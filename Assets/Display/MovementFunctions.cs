@@ -8,7 +8,7 @@ public class MovementFunctions {
     public delegate void RotateFunction ();
     public delegate void MoveFunction ();
     public delegate void RushFunction ();
-    public static void MoveRight(){
+    public static void MoveRight(){ // Moves the current piece to the right by translating the grid to the left
             Game.TouchColor();
             for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
@@ -38,7 +38,7 @@ public class MovementFunctions {
     }
     }
 
-     public static void MoveLeft(){
+     public static void MoveLeft(){ //Moves the current piece to the left by translating the grid to the right
         Game.TouchColor();
         for (int i=0;i<22;i++){
             for (int j=0;j<9;j++){
@@ -102,9 +102,11 @@ public class MovementFunctions {
                     int newX = Tetromino.centerX + Tetromino.centerY - j;
                     int newY = Tetromino.centerY - Tetromino.centerX + i;
                     if (newX<0 || newX>21 || newY<0 || newY>9){
+                        Debug.Log("Can't rotate1");
                         return;
                     }
                     if (Grids.Grid2[newX][newY] != SquareColor.TRANSPARENT){
+                        Debug.Log("Can't rotate2");
                         return;
                     }
                     newCoordinates.Add(new Vector2(newX,newY));
@@ -124,10 +126,10 @@ public class MovementFunctions {
         Grids.InitGrid3();
         GridDisplay.SetColors(Grids.Grid3);
         Tetromino.count = 0;
-    }
+      }
        
 
-     public static void Rush(){
+     public static void Rush(){ //Moves the current piece down by translating the grid up
     Game.TouchColor();
     for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
@@ -158,8 +160,4 @@ public class MovementFunctions {
         GridDisplay.SetColors(Grids.Grid3);
     }
 }
-// public static void Rush(){
-//     GridDisplay.SetTickTime(0.1f);
-// }
-
 }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+ 
 public class Game{
-    public static void DeleteLine(){
+    public static void DeleteLine(){ //This function deletes a line when it is full, increases score and moves all the lines above it down
         for (int i=0;i<22;i++){
             bool isFull = true;
             for (int j=0;j<10;j++){
@@ -30,7 +30,7 @@ public class Game{
             }
         }
     
-    public static void TouchColor(){
+    public static void TouchColor(){ //This function prevents tetrominos from colliding with each other
         for (int i=0;i<22;i++){
             for (int j=0;j<10;j++){
                 if (Grids.Grid[i][j] != SquareColor.TRANSPARENT ){
@@ -44,7 +44,7 @@ public class Game{
         }
     }
   
-  public static void GameoverCheck(){
+  public static void GameoverCheck(){ //This function checks if the game is over
         for (int i=0;i<10;i++){
             if (Grids.Grid2[0][i] != SquareColor.TRANSPARENT){
                 Tetromino.canMoveDown = false;
